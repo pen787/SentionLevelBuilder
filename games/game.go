@@ -18,7 +18,6 @@ func (g *Game) AddObject(floor uint16, obj objects.Object) {
 		g.Layers[floor] = make(objects.IDObjects)
 	}
 	g.Layers[floor][obj.GetID()] = obj
-
 }
 
 func (g *Game) RemoveObject(floor uint16, obj objects.Object) bool {
@@ -32,6 +31,11 @@ func (g *Game) RemoveObject(floor uint16, obj objects.Object) bool {
 }
 
 func (g *Game) Update() error {
+	err := g.GameManager.Update(g.Layers, g.AddObject, g.RemoveObject)
+	if err != nil {
+		return err
+	}
+
 	for _, layer := range g.Layers {
 		for _, obj := range layer {
 			got, ok := obj.(objects.Updateable)

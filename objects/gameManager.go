@@ -1,20 +1,15 @@
 package objects
 
 type Manager interface {
-	Object
+	Update(layer Layer) error
 }
 
 // Implement Object
-type GameManager struct {
-	ID uint32
-}
+type GameManager struct{}
 
-func (gm *GameManager) SetID(ID uint32) {
-	gm.ID = ID
-}
+func (gm *GameManager) Update(layer Layer) error {
 
-func (gm *GameManager) GetID() uint32 {
-	return gm.ID
+	return nil
 }
 
 func NewGameManager() *GameManager {
