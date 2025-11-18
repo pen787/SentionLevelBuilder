@@ -1,17 +1,20 @@
 package objects
 
 type Manager interface {
-	Update(layer Layer) error
+	Update() error
 }
 
 // Implement Object
-type GameManager struct{}
+type GameManager struct {
+	Layers Layers
+}
 
-func (gm *GameManager) Update(layer Layer) error {
-
+func (gm *GameManager) Update() error {
 	return nil
 }
 
-func NewGameManager() *GameManager {
-	return &GameManager{}
+func NewGameManager(layers *Layers) *GameManager {
+	return &GameManager{
+		Layers: *layers,
+	}
 }

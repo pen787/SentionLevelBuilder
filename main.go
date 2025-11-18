@@ -19,7 +19,8 @@ func main() {
 	ebiten.SetWindowTitle("Sention Level Builder")
 
 	game := games.NewGame()
-	game.AddObject(0, objects.NewPoint(emath.NewVector2(20, 20)))
+	ok := game.Layers.AddObject(0, objects.NewPoint(emath.NewVector2(20, 20)))
+	log.Println(ok)
 
 	if err := ebiten.RunGame(game); err != nil {
 		log.Fatal(err)

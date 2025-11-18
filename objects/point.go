@@ -11,14 +11,15 @@ import (
 type Point struct {
 	ID       uint32
 	Position emath.Vector2
+	Layer    uint8
 }
 
-func (p *Point) GetPosition() emath.Vector2 {
-	return p.Position
+func (p *Point) GetLayer() uint8 {
+	return p.Layer
 }
 
-func (p *Point) SetPosition(vector emath.Vector2) {
-	p.Position = vector
+func (p *Point) SetLayer(layer uint8) {
+	p.Layer = layer
 }
 
 func (p *Point) SetID(ID uint32) {
@@ -29,7 +30,7 @@ func (p *Point) GetID() uint32 {
 	return p.ID
 }
 
-func (p *Point) Render(gs Manager, layer Layer, screen *ebiten.Image) {
+func (p *Point) Render(gs Manager, layer *Layers, screen *ebiten.Image) {
 	vector.FillCircle(screen, p.Position.X, p.Position.Y, 5, color.RGBA{255, 0, 0, 255}, false)
 }
 
