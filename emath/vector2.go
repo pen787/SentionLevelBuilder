@@ -1,6 +1,9 @@
 package emath
 
-import "github.com/chewxy/math32"
+import (
+	"github.com/chewxy/math32"
+	"github.com/hajimehoshi/ebiten/v2"
+)
 
 type Vector2 struct {
 	X, Y float32
@@ -32,6 +35,11 @@ func (v Vector2) Invert() Vector2 {
 
 func (v Vector2) Lerp(v2 Vector2, t float32) Vector2 {
 	return v.Add(v2.Sub(v)).Mul(t)
+}
+
+func GetCursor() Vector2 {
+	x, y := ebiten.CursorPosition()
+	return NewVector2(float32(x), float32(y))
 }
 
 func NewVector2(x float32, y float32) Vector2 {
