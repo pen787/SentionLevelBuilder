@@ -1,6 +1,8 @@
 package objects
 
 import (
+	"log"
+
 	"github.com/pen787/SentionLevelBuilder/emath"
 )
 
@@ -26,6 +28,10 @@ func (l *Layers) AddObject(layer uint8, obj Object) bool {
 		return false
 	}
 	l.Data[layer][obj.GetID()] = obj
+	err := obj.Ready()
+	if err != nil {
+		log.Fatalln(err)
+	}
 
 	return true
 }
@@ -44,6 +50,10 @@ func (l *Layers) RemoveObject(layer uint8, obj Object) bool {
 		if v == obj {
 			objs[key] = nil
 			obj.SetLayer(255)
+			err := obj.Exit()
+			if err != nil {
+				log.Fatalln(err)
+			}
 			return true
 		}
 	}

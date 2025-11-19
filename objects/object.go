@@ -18,9 +18,7 @@ type Object interface {
 
 	SetLayer(layer uint8)
 	GetLayer() uint8
-}
 
-type Node interface {
-	Updateable
-	Renderable
+	Ready() error
+	Exit() error
 }

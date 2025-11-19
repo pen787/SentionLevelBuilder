@@ -7,17 +7,41 @@ import (
 )
 
 type Manager interface {
+	Ready() error
 	Update() error
 }
 
-// Implement Object
 type GameManager struct {
-	Layers *Layers
+	Layers   *Layers
+	Selected *Point
+}
+
+func (gm *GameManager) Ready() error {
+	return nil
 }
 
 func (gm *GameManager) Update() error {
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButton0) {
-		ok := gm.Layers.AddObject(1, NewPoint(emath.GetCursor()))
+		if gm.Selected != nil {
+			gm.Selected.Selected = false
+			gm.Selected = nil
+		}
+
+		for _, p := range gm.Layers.Data[1] {
+			if p, ok := p.(*Point); ok {
+				if p.Position.DistanceTo(emath.GetCursor()) < 10 {
+					gm.Selected = p
+					p.Selected = true
+					break
+				} else {
+					gm.Selected = nil
+				}
+			}
+		}
+
+		if gm.Selected == nil {
+			gm.Layers.AddObject(1, NewPoint(emath.GetCursor()))
+		}
 	}
 
 	return nil
