@@ -17,6 +17,18 @@ func (v Vector2) DistanceTo(v2 Vector2) float32 {
 	return math32.Sqrt((v2.X-v.X)*(v2.X-v.X) + (v2.Y-v.Y)*(v2.Y-v.Y))
 }
 
+func (v Vector2) Length() float32 {
+	return math32.Sqrt((v.X * v.X) + (v.Y * v.Y))
+}
+
+func (v Vector2) Dot(v2 Vector2) float32 {
+	return (v.X * v2.X) + (v.Y * v.Y)
+}
+
+func (v Vector2) Unit() Vector2 {
+	d := v.Length()
+	return NewVector2(v.X/d, v.Y/d)
+}
 func (v Vector2) Sub(v2 Vector2) Vector2 {
 	return NewVector2(v.X-v2.X, v.Y-v2.Y)
 }
