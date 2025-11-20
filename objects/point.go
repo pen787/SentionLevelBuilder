@@ -15,6 +15,14 @@ type Point struct {
 	Selected bool
 }
 
+func (p *Point) Select() {
+	p.Selected = true
+}
+
+func (p *Point) Deselect() {
+	p.Selected = false
+}
+
 func (p *Point) GetLayer() uint8 {
 	return p.Layer
 }
